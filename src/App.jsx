@@ -47,6 +47,22 @@ function App() {
           return
         }
 
+        const { data: userStore, error: storeError } = await supabase
+          .from("user_store")
+          .select("store_id")
+          .eq("user_id", user.id)
+          .single()
+
+        if (storeError) {
+          console.log("Error al obtener la tienda:", storeError)
+        }
+
+        if (!userStore) {
+          console.log("Usuario sin tienda asignada, redirigiendo a afiliación")
+          // Si no tiene rol, redirigir a la página de afiliación
+          navigate("/auth/register/affiliation/store")
+        }
+
         // Redirigir según el rol
         if (userRole.role_id === 1) {
           console.log("Redirigiendo a panel de administrador")

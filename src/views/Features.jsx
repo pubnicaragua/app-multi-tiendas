@@ -185,6 +185,7 @@ const ProductConfigurator = () => {
                 {
                     message: "Nueva solicitud de tienda",
                     is_read: false,
+                    type: 1,
                     created_at: new Date(),
                 },
             ])

@@ -18,7 +18,9 @@ import Tiendas from "./src/views/Tiendas";
 import Solicitudes from "./src/views/Solicitudes";
 import Reportes from "./src/views/Reportes";
 import UserDashboard from "./src/views/UserDashboard";
+import TiendaUsuario from "./src/views/TiendaUsuario"
 import Checkout from "./src/views/Checkout";
+import WaitModule from "./src/components/WaitModule"
 
 const router = createBrowserRouter([
     {
@@ -72,6 +74,18 @@ const router = createBrowserRouter([
         element: <Administration />
     },
     {
+        path: 'admin/manage/locations',
+        element: <WaitModule />
+    },
+    {
+        path: 'admin/manage/modules',
+        element: <WaitModule />
+    },
+    {
+        path: 'admin/manage/associates',
+        element: <WaitModule />
+    },
+    {
         path: 'admin/manage',
         element: <AdminLayout />,
         children: [
@@ -89,7 +103,7 @@ const router = createBrowserRouter([
             },
             {
                 path: 'reports',
-                element: <Reportes />
+                element: <WaitModule />
             }
         ]
     },
@@ -98,8 +112,24 @@ const router = createBrowserRouter([
         element: <DashboardLayout />,
         children: [
             {
-                path: 'dashboard',
+                path: 'confirmation',
                 element: <UserDashboard />
+            },
+            {
+                path: 'store',
+                element: <TiendaUsuario />
+            },
+            {
+                path: 'resume',
+                element: <WaitModule />
+            },
+            {
+                path: 'payments',
+                element: <WaitModule />
+            },
+            {
+                path: 'reports',
+                element: <WaitModule />
             }
         ]
     },

@@ -1,39 +1,40 @@
-import { Store, Handshake, BriefcaseBusiness, ShieldUser, ShieldCheck, ChartColumn, Component } from "lucide-react"
+import { Store, Puzzle, BriefcaseBusiness, ShieldUser, ShieldCheck, ChartColumn, Component } from "lucide-react"
 
 export const modules = [
     {
         id: 1,
         name: "Mapa de Tiendas",
-        description: "Descripcion",
+        description: "Visualiza la ubicación de todas las tiendas registradas.",
         icon: Store,
-        link: "/stores",
+        link: "/admin/manage/locations",
         color: "text-blue-600"
     },
     {
         id: 2,
-        name: "Afiliación",
-        description: "Descripcion",
-        icon: Handshake,
-        link: "/afiliation",
+        name: "Administración de Módulos",
+        description: "Gestiona los módulos disponibles para las tiendas.",
+        icon: Puzzle,
+        link: "/admin/manage/modules",
         color: "text-green-600"
     },
     {
         id: 3,
         name: "Portal de Socios",
-        description: "Descripcion",
+        description: "Accede al portal exclusivo para socios y colaboradores.",
         icon: BriefcaseBusiness,
-        link: "/associates",
+        link: "/admin/manage/associates",
         color: "text-orange-600"
     },
     {
         id: 4,
-        name: "Administración",
-        description: "Descripcion",
+        name: "Administración de Tiendas",
+        description: "Administra y supervisa todas las tiendas registradas en el sistema.",
         icon: ShieldUser,
         link: "/admin/manage/resume",
         color: "text-pink-600"
     }
 ];
+
 
 export const features = [
     {
@@ -71,37 +72,37 @@ export const pendingRequests = [
 
 export const stores = [
     {
-      id: 1,
-      name: "TechZone Monterrey",
-      location: "Monterrey",
-      time: "1 day ago",
-      status: "Pendiente",
-      modules: 15,
-      clients: 248,
-      devices: 127,
-      affiliationDate: "15/01/2023",
+        id: 1,
+        name: "TechZone Monterrey",
+        location: "Monterrey",
+        time: "1 day ago",
+        status: "Pendiente",
+        modules: 15,
+        clients: 248,
+        devices: 127,
+        affiliationDate: "15/01/2023",
     },
     {
-      id: 2,
-      name: "MatrixCell Centro",
-      location: "CDMX",
-      status: "Activo",
-      modules: 12,
-      clients: 156,
-      devices: 94,
-      affiliationDate: "03/02/2023",
+        id: 2,
+        name: "MatrixCell Centro",
+        location: "CDMX",
+        status: "Activo",
+        modules: 12,
+        clients: 156,
+        devices: 94,
+        affiliationDate: "03/02/2023",
     },
     {
-      id: 3,
-      name: "Móvil Express Reforma",
-      location: "CDMX",
-      status: "Inactivo",
-      modules: 8,
-      clients: 87,
-      devices: 54,
-      affiliationDate: "22/02/2023",
+        id: 3,
+        name: "Móvil Express Reforma",
+        location: "CDMX",
+        status: "Inactivo",
+        modules: 8,
+        clients: 87,
+        devices: 54,
+        affiliationDate: "22/02/2023",
     },
-  ]
+]
 
 
 

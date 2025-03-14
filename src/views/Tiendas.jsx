@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import supabase from "../utils/supabase";
 import { Store, ChevronLeft } from "lucide-react";
 
-function Tiendas() {
+function Tiendas({ limit = null, title = '' }) {
     const [stores, setStores] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -10,10 +10,18 @@ function Tiendas() {
         const fetchStores = async () => {
             setLoading(true);
 
-            // 1️⃣ Obtener todas las tiendas
-            let { data: storesData, error: storesError } = await supabase
+            // Obtener todas las tiendas
+            let query = supabase
                 .from("store")
-                .select("id, establishment_name, address, is_active, created_at");
+                .select("id, establishment_name, address, is_active, created_at")
+                .order("created_at", { ascending: false })
+
+            if (limit) {
+                query = query.limit(limit);
+            }
+
+            let { data: storesData, error: storesError } = await query;
+
 
             if (storesError) {
                 console.error("Error obteniendo tiendas:", storesError);
@@ -21,30 +29,32 @@ function Tiendas() {
                 return;
             }
 
-            // 2️⃣ Obtener el número de módulos por tienda
+            //Obtener el número de módulos por tienda
             let { data: modulesData } = await supabase
                 .from("selected_module_features")
-                .select("store_id", { count: "exact" });
+                .select("store_id, is_confirmed, module_id", { count: "exact" })
 
-                console.log(modulesData.length)
 
-            // 3️⃣ Obtener el número de clientes por tienda
+            console.log(modulesData.length)
+
+            // Obtener el número de clientes por tienda
             let { data: clientsData } = await supabase
                 .from("clients")
                 .select("store_id", { count: "exact" });
 
-            // 4️⃣ Obtener el número de dispositivos por tienda
+            //Obtener el número de dispositivos por tienda
             let { data: devicesData } = await supabase
                 .from("devices")
                 .select("store_id", { count: "exact" });
 
-            // 5️⃣ Unir los datos en un solo objeto
+            // Unir los datos en un solo objeto
             const storesWithCounts = storesData.map((store) => ({
                 ...store,
-                modules: modulesData.length,
-                clients: clientsData.length,
-                devices: devicesData.length,
+                modules: modulesData.filter((module) => module.store_id === store.id).length,
+                clients: clientsData.filter((client) => client.store_id === store.id).length,
+                devices: devicesData.filter((device) => device.store_id === store.id).length,
             }));
+
 
             setStores(storesWithCounts);
             setLoading(false);
@@ -58,7 +68,7 @@ function Tiendas() {
 
     return (
         <div className="p-6">
-            <h2 className="text-2xl font-bold mb-4">Administración de Tiendas</h2>
+            <h2 className="text-2xl font-bold mb-4">{title ? title : 'Administración de Tiendas'}</h2>
 
             <div className="bg-white rounded-lg shadow-sm divide-y">
                 {stores.map((store) => (

@@ -1,6 +1,7 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 import supabase from "../utils/supabase"
 
 function AffiliationForm() {
@@ -11,12 +12,15 @@ function AffiliationForm() {
         address: "",
         postal_code: "",
         email: "",
-        tipo_empresa: "Persona Física",
+        company_type: "Persona Física",
+        lat: null,
+        long: null,
     }
 
     const [formData, setFormData] = useState(initialFormState)
     const [loading, setLoading] = useState(false)
     const [errors, setErrors] = useState({})
+    const navigate = useNavigate()
 
     const validateForm = () => {
         const newErrors = {}
@@ -39,12 +43,31 @@ function AffiliationForm() {
     const handleInputChange = (e) => {
         const { name, value } = e.target
         setFormData({ ...formData, [name]: value })
-        
+
         // Clear error when user types
         if (errors[name]) {
             setErrors({ ...errors, [name]: null })
         }
     }
+
+    // Obtener ubicación del navegador
+    useEffect(() => {
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    setFormData(prevState => ({
+                        ...prevState,
+                        lat: position.coords.latitude,
+                        long: position.coords.longitude
+                    }));
+                },
+                (error) => console.error("Error obteniendo ubicación:", error),
+                { enableHighAccuracy: true }
+            );
+        } else {
+            console.error("Geolocalización no soportada en este navegador.");
+        }
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -65,7 +88,7 @@ function AffiliationForm() {
                         city: formData.city,
                         phone: formData.phone,
                         email: formData.email,
-                        company_type: formData.tipo_empresa,
+                        company_type: formData.company_type,
                         created_at: new Date(),
                     },
                 ])
@@ -113,6 +136,17 @@ function AffiliationForm() {
             setLoading(false)
         }
     }
+
+    // Guardar en `localStorage` y redirigir a selección de características
+    const handleContinue = () => {
+        if (!validateForm()) return;
+
+        // Guardar datos en localStorage
+        localStorage.setItem("storeData", JSON.stringify(formData));
+
+        // Redirigir a selección de características
+        navigate("/auth/register/affiliation/features");
+    };
 
     return (
         <div className="max-w-4xl mx-auto p-4">
@@ -221,22 +255,22 @@ function AffiliationForm() {
                         <div className="flex flex-col sm:flex-row gap-4">
                             <button
                                 type="button"
-                                className={`flex-1 py-3 px-4 rounded-lg shadow-sm transition-colors ${formData.tipo_empresa === "Persona Física"
+                                className={`flex-1 py-3 px-4 rounded-lg shadow-sm transition-colors ${formData.company_type === "Persona Física"
                                     ? "bg-blue-700 text-white"
                                     : "bg-gray-100 hover:bg-gray-200 text-gray-800"
                                     }`}
-                                onClick={() => setFormData({ ...formData, tipo_empresa: "Persona Física" })}
+                                onClick={() => setFormData({ ...formData, company_type: "Persona Física" })}
                             >
                                 Persona Física
                             </button>
 
                             <button
                                 type="button"
-                                className={`flex-1 py-3 px-4 rounded-lg shadow-sm transition-colors ${formData.tipo_empresa === "Persona Moral"
+                                className={`flex-1 py-3 px-4 rounded-lg shadow-sm transition-colors ${formData.company_type === "Persona Moral"
                                     ? "bg-blue-700 text-white"
                                     : "bg-gray-100 hover:bg-gray-200 text-gray-800"
                                     }`}
-                                onClick={() => setFormData({ ...formData, tipo_empresa: "Persona Moral" })}
+                                onClick={() => setFormData({ ...formData, company_type: "Persona Moral" })}
                             >
                                 Persona Moral
                             </button>
@@ -246,7 +280,8 @@ function AffiliationForm() {
                     {/* Submit Button */}
                     <div className="mt-10">
                         <button
-                            type="submit"
+                            type="button"
+                            onClick={handleContinue}
                             disabled={loading}
                             className={`w-full sm:w-auto float-right py-3 px-8 rounded-lg text-white font-medium transition-colors ${loading ? "bg-blue-400 cursor-not-allowed" : "bg-blue-900 hover:bg-blue-800"
                                 }`}

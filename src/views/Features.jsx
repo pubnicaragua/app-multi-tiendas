@@ -192,7 +192,7 @@ const ProductConfigurator = () => {
             if (notificationError) throw notificationError
 
             // Redireccionar al dashboard
-            navigate("/user/dashboard")
+            navigate("/user/confirmation")
         } catch (error) {
             console.error("Error al guardar la configuración:", error)
             alert("Ocurrió un error al guardar tu configuración. Por favor, intenta de nuevo.")

@@ -6,7 +6,7 @@ function Header() {
     const navigate = useNavigate();
 
     const enlaces = {
-        Celulares: "/celulares",
+        Celulares: "/home/celulares",
         Préstamos: "",
         "Vende con PayStore": "",
         Vacantes: "",
@@ -22,7 +22,7 @@ function Header() {
 
     return (
         <header className="flex justify-between items-center p-6">
-            <h1 className="text-blue-900 font-extrabold text-2xl">
+            <h1 className="text-blue-900 font-extrabold text-2xl hover:cursor-pointer" onClick={() => navigate('/home')}>
                 PAY<span className="text-orange-600">STORE</span>
             </h1>
 
@@ -53,7 +53,7 @@ function Header() {
                 <Globe />
 
                 <select className="border p-2 rounded-md bg-none border-none hover:bg-gray-200">
-                    {["Ecuador", "Perú", "Colombia", "Chile"].map((country) => (
+                    {["Nicaragua", "Perú", "Colombia", "Chile"].map((country) => (
                         <option key={country} value={country}>
                             {country}
                         </option>

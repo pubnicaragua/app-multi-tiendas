@@ -18,33 +18,33 @@ function App() {
           <div className="flex flex-col lg:flex-row items-center gap-12">
             <div className="max-w-xl z-10 text-center lg:text-left">
               <h1 className="text-5xl md:text-6xl font-bold leading-tight">
-                ¡Obtén un préstamo para estrenar celular hoy!
+                Optimiza tu tienda y otorga créditos con facilidad
               </h1>
 
               <ul className="mt-6 space-y-3">
                 <li className="flex items-start">
                   <CheckCircle className="h-6 w-6 text-green-500 mr-2 flex-shrink-0" />
-                  <span className="text-gray-700">Construye tu historial crediticio</span>
+                  <span className="text-gray-700">Gestiona créditos y pagos en una sola plataforma</span>
                 </li>
                 <li className="flex items-start">
                   <CheckCircle className="h-6 w-6 text-green-500 mr-2 flex-shrink-0" />
-                  <span className="text-gray-700">Estrénalo ahora y paga después</span>
+                  <span className="text-gray-700">Monitorea tu inventario y administra clientes</span>
                 </li>
                 <li className="flex items-start">
                   <CheckCircle className="h-6 w-6 text-green-500 mr-2 flex-shrink-0" />
-                  <span className="text-gray-700">Compatible con las mejores marcas</span>
+                  <span className="text-gray-700">Encuentra tiendas que ofrecen financiamiento</span>
                 </li>
               </ul>
 
               <button className="mt-5 bg-orange-500 text-white font-medium py-4 px-6 rounded-lg hover:bg-orange-600 transition transform hover:scale-105">
-                Encuentra tu tienda más cercana
+                Descubre cómo funciona
               </button>
             </div>
 
             <div className="lg:w-1/2">
               <img
                 src={heroImage || "/placeholder.svg"}
-                alt="Persona usando celular"
+                alt="Interfaz del software de gestión"
                 className="rounded-lg w-full h-auto object-cover"
               />
             </div>

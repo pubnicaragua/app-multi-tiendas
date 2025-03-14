@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom"
+
 function Footer() {
+    const navigate = useNavigate();
 
     return (
         <div>
@@ -67,61 +70,52 @@ function Footer() {
                         <div>
                             <h4 className="text-lg font-semibold mb-4">Sobre PayStore</h4>
                             <p className="text-gray-600">
-                                Ofrecemos soluciones de crédito rápidas y accesibles para que puedas obtener el celular que deseas o el
-                                préstamo que necesitas.
+                                Ofrecemos soluciones de software para la gestión de tiendas, clientes y financiamientos, facilitando la administración de inventarios y créditos.
                             </p>
                         </div>
                         <div>
                             <h4 className="text-lg font-semibold mb-4">Enlaces rápidos</h4>
                             <ul className="space-y-2 text-gray-600">
                                 <li>
-                                    <a href="#" className="hover:text-blue-900">
-                                        Celulares
-                                    </a>
+                                    <a onClick={() => navigate('/home/proximamente')} className="hover:text-blue-900">Gestión de tiendas</a>
                                 </li>
                                 <li>
-                                    <a href="#" className="hover:text-blue-900">
-                                        Préstamos
-                                    </a>
+                                    <a onClick={() => navigate('/home/proximamente')} className="hover:text-blue-900">Créditos y financiamientos</a>
                                 </li>
                                 <li>
-                                    <a href="#" className="hover:text-blue-900">
-                                        Vende con nosotros
-                                    </a>
+                                    <a onClick={() => navigate('/home/proximamente')} className="hover:text-blue-900">Inventarios</a>
                                 </li>
                                 <li>
-                                    <a href="#" className="hover:text-blue-900">
-                                        Blog
-                                    </a>
+                                    <a onClick={() => navigate('/home/proximamente')} className="hover:text-blue-900">Blog</a>
                                 </li>
                             </ul>
                         </div>
                         <div>
                             <h4 className="text-lg font-semibold mb-4">Contacto</h4>
                             <ul className="space-y-2 text-gray-600">
-                                <li>info@paystore.com</li>
-                                <li>+1 (800) 123-4567</li>
-                                <li>Calle Principal #123, Ciudad</li>
+                                <li>pbcnicaragua803@gmail.com</li>
+                                <li>+505 8824 1003</li>
+                                <li>Managua, Ciudad Sandino</li>
                             </ul>
                         </div>
                         <div>
                             <h4 className="text-lg font-semibold mb-4">Síguenos</h4>
                             <div className="flex space-x-4">
-                                <a href="#" className="text-gray-600 hover:text-blue-900">
+                                <p onClick={() => navigate('/home/proximamente')} className="text-gray-600 hover:text-blue-900">
                                     <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
                                         <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
                                     </svg>
-                                </a>
-                                <a href="#" className="text-gray-600 hover:text-blue-900">
+                                </p>
+                                <p onClick={() => navigate('/home/proximamente')} className="text-gray-600 hover:text-blue-900">
                                     <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
                                         <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.82 7.6c.004.1.007.198.007.298 0 3.045-2.318 6.56-6.56 6.56a6.529 6.529 0 01-3.532-1.033 4.618 4.618 0 003.407-.954 2.304 2.304 0 01-2.15-1.6 2.292 2.292 0 001.04-.04 2.303 2.303 0 01-1.846-2.255v-.03c.31.173.666.277 1.044.29a2.302 2.302 0 01-.713-3.07 6.54 6.54 0 004.749 2.407 2.302 2.302 0 013.926-2.1 4.601 4.601 0 001.463-.559 2.31 2.31 0 01-1.012 1.275 4.588 4.588 0 001.324-.363 4.66 4.66 0 01-1.147 1.19z" />
                                     </svg>
-                                </a>
-                                <a href="#" className="text-gray-600 hover:text-blue-900">
+                                </p>
+                                <p onClick={() => navigate('/home/proximamente')} className="text-gray-600 hover:text-blue-900">
                                     <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
                                         <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm-2 15.5v-9l6 4.5-6 4.5z" />
                                     </svg>
-                                </a>
+                                </p>
                             </div>
                         </div>
                     </div>

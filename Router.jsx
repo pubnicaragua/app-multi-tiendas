@@ -38,6 +38,10 @@ const router = createBrowserRouter([
             {
                 path: 'celulares',
                 element: <Celulares />
+            },
+            {
+                path: 'proximamente',
+                element: <WaitModule />
             }
         ]
     },

@@ -18,16 +18,16 @@ function Home() {
                     <div className="flex flex-col lg:flex-row items-center gap-12">
                         <div className="max-w-xl z-10 text-center lg:text-left">
                             <h1 className="text-5xl md:text-6xl font-bold leading-tight">
-                                PayStore te da crédito <span className="text-indigo-600">fácil</span>,{" "}
-                                <span className="text-indigo-600">rápido</span> y <span className="text-indigo-600">accesible</span>
+                                La plataforma todo en uno para <span className="text-indigo-600">tiendas</span>,{" "}
+                                <span className="text-indigo-600">créditos </span> y <span className="text-indigo-600">administración</span>
                             </h1>
-                            <p className="text-xl text-gray-600 mt-4">Estrena celular o aplica a un préstamo personal hoy!</p>
+                            <p className="text-xl text-gray-600 mt-4">Gestiona tu tienda y otorga créditos con facilidad</p>
                             <div className="flex flex-col sm:flex-row gap-4 mt-8">
                                 <button className="bg-blue-900 text-white font-medium py-3 px-6 rounded-lg hover:bg-blue-950 transition transform hover:scale-105">
-                                    Estrena celular
+                                    Explora tiendas y créditos
                                 </button>
                                 <button className="bg-orange-500 text-white font-medium py-3 px-6 rounded-lg hover:bg-orange-600 transition transform hover:scale-105">
-                                    Aplica a un préstamo
+                                    Descubre cómo otorgar créditos
                                 </button>
                             </div>
                         </div>
@@ -49,40 +49,41 @@ function Home() {
                     <div className="flex flex-col lg:flex-row items-center gap-12">
                         <div className="lg:w-1/2">
                             <h2 className="text-4xl font-bold">
-                                Estrena <span className="text-indigo-600">celular</span> hoy!
+                                Gestiona tu <span className="text-indigo-600">tienda</span> y créditos fácilmente
                             </h2>
                             <p className="text-lg text-gray-600 mt-4">
-                                Llévate un celular a crédito en minutos y paga al plazo que más te convenga: 3, 6, 9 o 12 meses.
+                                Administra tu inventario, clientes y financiamientos desde una sola plataforma. Optimiza tu negocio con herramientas avanzadas.
                             </p>
                             <ul className="mt-6 space-y-3">
                                 <li className="flex items-start">
                                     <CheckCircle className="h-6 w-6 text-green-500 mr-2 flex-shrink-0" />
-                                    <span className="text-gray-700">Construye tu historial crediticio</span>
+                                    <span className="text-gray-700">Otorga y gestiona créditos con facilidad</span>
                                 </li>
                                 <li className="flex items-start">
                                     <CheckCircle className="h-6 w-6 text-green-500 mr-2 flex-shrink-0" />
-                                    <span className="text-gray-700">Estrénalo ahora y paga después</span>
+                                    <span className="text-gray-700">Control total sobre inventario y ventas</span>
                                 </li>
                                 <li className="flex items-start">
                                     <CheckCircle className="h-6 w-6 text-green-500 mr-2 flex-shrink-0" />
-                                    <span className="text-gray-700">Compatible con las mejores marcas</span>
+                                    <span className="text-gray-700">Encuentra tiendas que ofrecen financiamiento</span>
                                 </li>
                             </ul>
                             <button className="mt-8 bg-blue-900 text-white font-medium py-3 px-6 rounded-lg hover:bg-blue-950 transition transform hover:scale-105">
-                                Conoce más
+                                Descubre cómo funciona
                             </button>
                         </div>
 
                         <div className="lg:w-1/2">
                             <img
                                 src={featureImage || "/placeholder.svg"}
-                                alt="Persona usando celular"
+                                alt="Interfaz de software de gestión"
                                 className="rounded-lg w-full h-auto object-cover"
                             />
                         </div>
                     </div>
                 </div>
             </section>
+
 
             {/* Brands Section */}
             <section className="py-16 bg-gray-50">

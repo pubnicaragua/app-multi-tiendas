@@ -18,6 +18,7 @@ import Tiendas from "./src/views/Tiendas";
 import Solicitudes from "./src/views/Solicitudes";
 import Reportes from "./src/views/Reportes";
 import UserDashboard from "./src/views/UserDashboard";
+import Checkout from "./src/views/Checkout";
 
 const router = createBrowserRouter([
     {
@@ -101,6 +102,10 @@ const router = createBrowserRouter([
                 element: <UserDashboard />
             }
         ]
+    },
+    {
+        path: 'checkout/:storeId',
+        element: <Checkout />
     }
 ])
 

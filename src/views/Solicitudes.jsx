@@ -36,7 +36,7 @@ function Solicitudes() {
                         price
                     )
                 `)
-                .eq("isConfirmed", false)
+                .eq("is_confirmed", false)
                 .order("created_at", { ascending: false })
 
             if (modulesError) throw modulesError
@@ -75,7 +75,7 @@ function Solicitudes() {
             // Actualizar el estado de confirmación
             const { error: updateError } = await supabase
                 .from("selected_module_features")
-                .update({ isConfirmed: true })
+                .update({ is_confirmed: true })
                 .eq("store_id", storeId)
 
             if (updateError) throw updateError

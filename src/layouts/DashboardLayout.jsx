@@ -13,10 +13,10 @@ function AdminLayout() {
     const [loading, setLoading] = useState(true)
 
     const tabs = [
-        { name: "Mi Tienda", path: "/user/dashboard" },
-        { name: "Resumen", path: "/user/resumen" },
-        { name: "Pagos", path: "/user/pagos" },
-        { name: "Reportes", path: "/user/reportes" },
+        { name: "Mi Tienda", path: "/user/store" },
+        { name: "Resumen", path: "/user/resume" },
+        { name: "Pagos", path: "/user/payments" },
+        { name: "Reportes", path: "/user/reports" },
     ]
 
     useEffect(() => {

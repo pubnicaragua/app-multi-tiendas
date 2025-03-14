@@ -1,15 +1,16 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from "vite"
+import react from "@vitejs/plugin-react"
 
 export default defineConfig({
   plugins: [react()],
-  base: './', // ⚠️ Importante: Esto ayuda a cargar correctamente los archivos en Vercel
+  // Remove the base: './' configuration as it's not needed for Vercel
   build: {
-    outDir: 'dist',
+    outDir: "dist",
   },
   resolve: {
     alias: {
-      '@': '/src',
-    }
-  }
+      "@": "/src",
+    },
+  },
 })
+

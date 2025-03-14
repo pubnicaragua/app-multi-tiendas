@@ -10,18 +10,17 @@ const ProductConfigurator = () => {
     const [totalPrice, setTotalPrice] = useState(0);
     const location = useLocation()
     const navigate = useNavigate()
-    const { storeData } = location.state || {}
-
+    const [storeData, setStoreData] = useState(null);
     const [loading, setLoading] = useState(false)
 
-    // // Verificar si tenemos los datos necesarios
-    // useEffect(() => {
-    //     if (!storeData) {
-    //         navigate("/auth/register/affiliation/store")
-    //     }
-    // }, [storeData, navigate])
+    useEffect(() => {
+        const storeData = localStorage.getItem("storeData");
+        if (storeData) {
+            setStoreData(JSON.parse(storeData));
+        }
+    }, [])
 
-    // Obtener módulos y sus características desde Supabase
+
     useEffect(() => {
         const fetchModules = async () => {
             const { data: modulesData, error: modulesError } = await supabase.from("modules").select("*");
@@ -129,44 +128,57 @@ const ProductConfigurator = () => {
                 throw new Error("No se encontró un usuario autenticado.")
             }
 
+            // Recuperar datos de la tienda desde localStorage
+            const storeData = JSON.parse(localStorage.getItem("storeData"));
+            if (!storeData) {
+                throw new Error("No se encontraron datos de la tienda. Regresa y completa la información.");
+            }
+
+            // Insertar tienda en Supabase
+            const { data: storeInsertData, error: storeError } = await supabase.from("store").insert([storeData]).select();
+            if (storeError) throw storeError;
+
+            const storeId = storeInsertData[0].id;
+
             // 1. Insertar en user_store
             const { error: userStoreError } = await supabase.from("user_store").insert([
                 {
                     user_id: user.id,
-                    store_id: storeData.id,
+                    store_id: storeId,
                     created_at: new Date(),
                 },
             ])
-
             if (userStoreError) throw userStoreError
 
-            // 2. Insertar módulos y características seleccionadas
-            const selectedModuleFeatures = []
+            // 2. Preparar los datos para insertar en selected_module_features
+            // Usamos un Map para evitar duplicados, usando una clave única para cada combinación
+            const selectedModuleFeaturesMap = new Map();
 
-            // Preparar los datos para la inserción
+            // Primero, procesamos los módulos seleccionados
             Object.values(selectedModules).forEach((module) => {
-                // Insertar el módulo base
-                selectedModuleFeatures.push({
-                    module_id: module.id,
-                    store_id: storeData.id,
-                    user_id: user.id,
-                })
+                // Verificamos si hay características seleccionadas para este módulo
+                //const hasSelectedFeatures = module.features.some(feature => selectedFeatures[feature.id]);
 
-                // Insertar las características seleccionadas del módulo
-                module.features
-                    .filter((feature) => selectedFeatures[feature.id])
-                    .forEach((feature) => {
-                        selectedModuleFeatures.push({
+                // Luego agregamos las características seleccionadas para este módulo
+                module.features.forEach((feature) => {
+                    if (selectedFeatures[feature.id]) {
+                        const featureKey = `module-${module.id}-feature-${feature.id}`;
+                        selectedModuleFeaturesMap.set(featureKey, {
                             module_id: module.id,
-                            feature_id: feature,
-                            store_id: storeData.id,
+                            feature_id: feature.id,
+                            store_id: storeId,
                             user_id: user.id,
-                        })
-                    })
-            })
+                            is_confirmed: false
+                        });
+                    }
+                });
+            });
+
+            // Convertir Map en Array para la inserción
+            const insertArray = Array.from(selectedModuleFeaturesMap.values());
 
             // Insertar todas las selecciones
-            const { error: selectionError } = await supabase.from("selected_module_features").insert(selectedModuleFeatures)
+            const { error: selectionError } = await supabase.from("selected_module_features").insert(insertArray)
             if (selectionError) throw selectionError
 
             const { error: notificationError } = await supabase.from("notifications").insert([
@@ -176,7 +188,6 @@ const ProductConfigurator = () => {
                     created_at: new Date(),
                 },
             ])
-
             if (notificationError) throw notificationError
 
             // Redireccionar al dashboard
@@ -187,7 +198,8 @@ const ProductConfigurator = () => {
         } finally {
             setLoading(false)
         }
-    }
+    };
+
 
     return (
         <div className="max-w-6xl mx-auto p-4">

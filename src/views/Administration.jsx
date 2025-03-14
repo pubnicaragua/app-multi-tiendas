@@ -1,6 +1,8 @@
 import { ChevronLeft, User, UserCircle, Store, Handshake, BriefcaseBusiness, ShieldUser } from "lucide-react"
 import { useNavigate } from "react-router-dom";
 import { modules, features } from "../utils/data";
+import NotificationBell from "../components/NotificationBell"
+import UserProfileMenu from "../components/UserProfileMenu"
 
 function Administration() {
 
@@ -20,12 +22,10 @@ function Administration() {
                         </div>
                     </div>
 
-                    <button
-                        className="p-2 rounded-full bg-white shadow-md hover:bg-gray-200"
-                        onClick={() => navigate('/profile')}
-                    >
-                        <UserCircle height={30} width={30} color="#747c78" />
-                    </button>
+                    <div className="flex items-center space-x-4">
+                        <NotificationBell />
+                        <UserProfileMenu />
+                    </div>
                 </div>
 
                 {/*Grid de modulos */}

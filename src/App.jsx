@@ -71,7 +71,7 @@ function App() {
         } else if (userRole.role_id === 2) {
           console.log("Redirigiendo a dashboard de usuario")
           // Rol de usuario normal
-          navigate("/user/dashboard")
+          navigate("/user/store")
         } else {
           console.log("Rol desconocido:", userRole.role_id)
           // Cualquier otro rol no definido

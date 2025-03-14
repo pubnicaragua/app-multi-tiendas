@@ -99,7 +99,7 @@ function Solicitudes() {
         {
           message,
           is_read: false,
-          type: 2,
+          type: 1,
           created_at: new Date(),
         },
       ])

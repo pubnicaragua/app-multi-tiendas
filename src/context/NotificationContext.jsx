@@ -2,6 +2,7 @@
 
 import { createContext, useState, useEffect } from "react"
 import supabase from "../utils/supabase"
+import { useAuth } from "./AuthContext" // Add this import
 
 export const NotificationContext = createContext(undefined)
 
@@ -9,12 +10,35 @@ export function NotificationProvider({ children }) {
     const [notifications, setNotifications] = useState([])
     const [unreadCount, setUnreadCount] = useState(0)
     const [loading, setLoading] = useState(true)
+    const { userRole } = useAuth() // Get the user's role from AuthContext
 
     // Función para cargar notificaciones iniciales
     const fetchNotifications = async () => {
         try {
             setLoading(true)
-            const { data, error } = await supabase.from("notifications").select("*").order("created_at", { ascending: false })
+
+            // If userRole is not available yet, don't fetch notifications
+            if (userRole === null) {
+                setNotifications([])
+                setUnreadCount(0)
+                return
+            }
+
+            // Filter notifications by type based on user role
+            // userRole 1 = admin, userRole 2 = user
+            // type 1 = user notifications, type 2 = admin notifications
+            let query = supabase.from("notifications").select("*")
+
+            // Filter by type based on role
+            if (userRole === 1) {
+                // Admin role
+                query = query.eq("type", 2) // Admin notifications
+            } else if (userRole === 2) {
+                // User role
+                query = query.eq("type", 1) // User notifications
+            }
+
+            const { data, error } = await query.order("created_at", { ascending: false })
 
             if (error) throw error
 
@@ -32,6 +56,9 @@ export function NotificationProvider({ children }) {
     useEffect(() => {
         fetchNotifications()
 
+        // Only set up subscription if we have a userRole
+        if (userRole === null) return
+
         // Crear el canal y la suscripción
         const channel = supabase.channel("db-changes", {
             config: {
@@ -40,7 +67,10 @@ export function NotificationProvider({ children }) {
             },
         })
 
-        // Suscribirse a cambios en la tabla notifications
+        // Determine which type of notifications to listen for
+        const notificationType = userRole === 1 ? 2 : 1 // 2 for admin, 1 for user
+
+        // Suscribirse a cambios en la tabla notifications con filtro por tipo
         channel
             .on(
                 "postgres_changes",
@@ -48,6 +78,7 @@ export function NotificationProvider({ children }) {
                     event: "*", // Escuchar todos los eventos (INSERT, UPDATE, DELETE)
                     schema: "public",
                     table: "notifications",
+                    filter: `type=eq.${notificationType}`, // Filter by notification type
                 },
                 async (payload) => {
                     console.log("Cambio recibido:", payload)
@@ -91,7 +122,7 @@ export function NotificationProvider({ children }) {
         return () => {
             channel.unsubscribe()
         }
-    }, [])
+    }, [userRole]) // Add userRole as a dependency
 
     // Función para marcar una notificación como leída
     const markAsRead = async (id) => {

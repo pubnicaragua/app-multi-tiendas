@@ -21,6 +21,7 @@ import UserDashboard from "./src/views/UserDashboard"
 import TiendaUsuario from "./src/views/TiendaUsuario"
 import Checkout from "./src/views/Checkout"
 import WaitModule from "./src/components/WaitModule"
+import PaymentHistory from "./src/views/PaymentHistory"
 
 const router = createBrowserRouter([
   {
@@ -133,11 +134,7 @@ const router = createBrowserRouter([
       },
       {
         path: "payments",
-        element: <WaitModule />,
-      },
-      {
-        path: "reports",
-        element: <WaitModule />,
+        element: <PaymentHistory />,
       },
     ],
   },

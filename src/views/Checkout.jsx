@@ -46,7 +46,7 @@ const CheckoutForm = ({ user, storeId, totalAmount }) => {
                     user_id: user.id,
                     store_id: storeId,
                     payment_method_id: paymentMethod.id,
-                    status: "pending",
+                    status: "completed",
                     amount: totalAmount, // Ajusta el precio real
                 },
             ]);
@@ -62,7 +62,7 @@ const CheckoutForm = ({ user, storeId, totalAmount }) => {
 
         // 4. Mostrar mensaje de éxito y redirigir
         alert("¡Pago completado con éxito!")
-        navigate("/user/dashboard")
+        navigate("/user/store")
     };
 
     return (

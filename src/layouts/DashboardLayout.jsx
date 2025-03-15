@@ -5,6 +5,8 @@ import { useLocation, useNavigate } from "react-router-dom"
 import { ChevronLeft } from "lucide-react"
 import { Outlet } from "react-router-dom"
 import NotificationBell from "../components/NotificationBell"
+import UserProfileMenu from "../components/UserProfileMenu"
+
 import supabase from "../utils/supabase"
 
 function AdminLayout() {
@@ -90,7 +92,10 @@ function AdminLayout() {
                         </div>
                     </div>
 
-                    <NotificationBell />
+                    <div className="flex items-center space-x-4">
+                        <NotificationBell />
+                        <UserProfileMenu />
+                    </div>
                 </div>
 
                 <nav className="flex space-x-8">

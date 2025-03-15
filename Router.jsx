@@ -1,4 +1,4 @@
-import { createHashRouter } from "react-router-dom"
+import { createBrowserRouter } from "react-router-dom"
 import MainLayout from "./src/layouts/MainLayout"
 import RegisterLayout from "./src/layouts/RegisterLayout"
 import AdminLayout from "./src/layouts/AdminLayout"
@@ -22,7 +22,7 @@ import TiendaUsuario from "./src/views/TiendaUsuario"
 import Checkout from "./src/views/Checkout"
 import WaitModule from "./src/components/WaitModule"
 
-const router = createHashRouter([
+const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
